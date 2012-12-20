@@ -55,7 +55,8 @@ def get_datetime(secs):
     if negative_timestamp_broken and secs < 0:
         return datetime.datetime(1970, 1, 1) + datetime.timedelta(seconds=secs)
 
-    return datetime.datetime.utcfromtimestamp(secs)
+    from django.utils import timezone
+    return timezone.make_aware(datetime.datetime.utcfromtimestamp(secs), timezone.utc)
 
 
 def get_properties(obj):
